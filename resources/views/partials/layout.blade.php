@@ -9,8 +9,7 @@
     @vite('resources/css/app.css')
 </head>
 <body>
-    @include('nav')
-    @yield('content')
-
+@include('partials.nav')
+@yield('content')
 </body>
 </html>
