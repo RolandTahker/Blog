@@ -1,4 +1,7 @@
+import defaultTheme from 'tailwindcss/defaultTheme';
+import forms from '@tailwindcss/forms';
 /** @type {import('tailwindcss').Config} */
+
 export default {
     content: [
         "./resources/**/*.blade.php",
@@ -9,7 +12,7 @@ export default {
     theme: {
         extend: {},
     },
-    plugins: [require("daisyui")],
+    plugins: [forms, require("daisyui")],
     daisyui: {
         themes: [
             "light",
@@ -44,3 +47,4 @@ export default {
         ]
     },
 }
+

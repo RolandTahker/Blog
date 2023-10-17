@@ -13,7 +13,13 @@ class ArticleController extends Controller
      */
     public function index()
     {
-        $articles = Article::latest()->Paginate();
+        $articles = Article::latest()->simplepaginate();
+        return view('articles.index', compact('articles'));
+    }
+
+    public function deleted()
+    {
+        $articles = Article::onlyTrashed()->orderby('deleted_at')->paginate();
         return view('articles.index', compact('articles'));
     }
 
@@ -33,7 +39,7 @@ class ArticleController extends Controller
 
         $article = new Article($request->validated());
         $article->save();
-        return_redirect()->route('articles.index');
+        return redirect()->route('articles.index');
     }
 
     /**
@@ -57,7 +63,11 @@ class ArticleController extends Controller
      */
     public function update(UpdateArticleRequest $request, Article $article)
     {
-        //
+    //    $article->title = $request->validated('title');
+    //    $article->body = $request->validated('title');
+        $article->fill($request->validated());
+        $article->save();
+        return redirect()->route('articles.index');
     }
 
     /**
@@ -65,6 +75,7 @@ class ArticleController extends Controller
      */
     public function destroy(Article $article)
     {
-        //
+        $article->delete();
+        return redirect()->route('articles.index');
     }
 }
